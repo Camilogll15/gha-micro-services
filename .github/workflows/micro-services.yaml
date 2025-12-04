@@ -1,0 +1,18 @@
+on: 
+  push
+jobs:
+  microservices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        # Use v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: dockerbuild
+        run: docker build -t ghcr.io/camilogll15/gha-micro-services:latest .
+      - name: docker login
+        env:
+          CR_PAT: ${{ github.token }}
+        run: echo $CR_PAT | docker login ghcr.io -u camilogll15 --password-stdin
+      - name: docker push 
+        run: docker push ghcr.io/camilogll15/gha-micro-services:latest
+
