@@ -1,5 +1,9 @@
 on: 
   push
+
+permissions:
+  packages: write
+
 jobs:
   microservices:
     runs-on: ubuntu-latest
